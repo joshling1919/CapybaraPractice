@@ -26,4 +26,10 @@ class User < ActiveRecord::Base
     user.is_password?(password) ? user : nil
   end
 
+  def reset_session_token
+    self.session_token = SecureRandom::urlsafe_base64(12)
+    self.save
+    
+  end
+
 end
