@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
-feature "the signup process" do
+RSpec.feature "the signup process", type: :feature do
 
   scenario "has a new user page" do
     visit new_user_url
@@ -29,7 +29,7 @@ feature "the signup process" do
 
 end
 
-feature "logging in" do
+RSpec.feature "logging in", type: :feature do
 
   feature "shows username on the homepage after login" do
     before(:each) do
@@ -52,7 +52,7 @@ feature "logging in" do
 
 end
 
-feature "logging out" do
+RSpec.feature "logging out", type: :feature do
 
   scenario "begins with a logged out state" do
     visit new_session_url
