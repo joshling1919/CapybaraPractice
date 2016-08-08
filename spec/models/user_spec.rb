@@ -36,7 +36,19 @@ RSpec.describe User, type: :model do
     it "should take password and return false if it is different" do
       expect(@bobert.is_password?("Grover")).to be false
     end
+  end
 
+  describe "find_by_credentials(username,password)" do
+    before(:each) do
+      @bob = create(:user)
+    end
+    
+    it "should be able to find user if credentials match" do
+      expect(User.find_by_credentials("Bobert","Slobert")).to eq @bob
+    end
+    it "should return nil if credentials dont match" do
+      expect(User.find_by_credentials("Bobert","Grover")).to be nil
+    end
   end
 
   describe "assocations" do
