@@ -1,24 +1,20 @@
 # == Schema Information
 #
-# Table name: goals
+# Table name: goal_comments
 #
 #  id         :integer          not null, primary key
-#  content    :text             not null
 #  author_id  :integer          not null
+#  goal_id    :integer          not null
+#  body       :text             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Goal < ActiveRecord::Base
-  validates :author, :content, presence: true
-
+class GoalComment < ActiveRecord::Base
   belongs_to :author,
   primary_key: :id,
   foreign_key: :author_id,
   class_name: :User
 
-  has_many :goal_comments
-
-
-
+  belongs_to :goal
 end

@@ -1,0 +1,9 @@
+<form action="<%=action_path%>" method="post">
+  <%= auth_token %>
+
+  <label>Comment
+    <input type="text" name="comment[body]" value="">
+  </label>
+  <input type="hidden" name="comment[<%=target%>]" value="<%=user_id%>">
+  <input type="submit" name="name" value="Make Comment">
+</form>

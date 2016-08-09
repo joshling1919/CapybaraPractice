@@ -1,13 +1,15 @@
 class GoalsController < ApplicationController
 
   before_action :ensure_logged_in
-  
+
   def index
     if params[:user_id].nil?
       @goals = Goal.all
+      @comments = []
     else
-      user = User.find(params[:user_id].to_i)
-      @goals = user.goals
+      @user = User.find(params[:user_id].to_i)
+      @goals = @user.goals
+      @comments = @user.user_comments
     end
   end
 

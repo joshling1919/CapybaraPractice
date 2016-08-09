@@ -96,4 +96,28 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  def make_user
+    visit new_user_url
+    fill_in 'username', :with => "testing_username"
+    fill_in "password", with: "password"
+    click_on "Create User"
+  end
+
+  def seed_database
+    10.times do
+      name = Faker::Name.name
+      create(:user, username: name, password: "password")
+    end
+    Goal.create(author_id: 2, content: "get fit!")
+
+    GoalComment.create(goal_id: 1, author_id: 1, body: "coolio dudio")
+  end
+
+  def make_new_user_comment
+    visit user_goals(1)
+
+
+  end
+
 end

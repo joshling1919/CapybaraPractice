@@ -1,2 +1,8 @@
-<%= @goal.content %> Committed By 
+<%= @goal.content %> Committed By
 <%= @goal.author.username %>
+<br>
+<% @goal.goal_comments.each do |comment| %>
+<%= comment.body %>
+<br>
+<% end %>
+<%= render "layouts/comment_form", action_path: '/goal_comments', target: "goal_id", user_id: @goal.id %>

@@ -2,29 +2,21 @@ require 'spec_helper'
 require 'rails_helper'
 
 RSpec.feature "goals creation method", type: :feature do
+  before(:each) do
+    make_user
+    visit new_goal_url
+  end
+
   scenario "redirects to login page if no user is logged in" do
     click_on "Log Out"
     visit new_goal_url
     expect(page).to have_current_path(new_session_path)
   end
 
-  before(:each) do
-    visit new_user_url
-    fill_in 'username', :with => "testing_username"
-    fill_in "password", with: "password"
-    click_on "Create User"
-    visit new_goal_url
-  end
+
   scenario "shows you new goal form if logged in" do
-    # create(:user)
-    # visit new_user_url
-    # fill_in 'username', :with => "testing_username"
-    # fill_in "password", with: "password"
-    # click_on "Create User"
-    # visit new_goal_url
     expect(page).to have_current_path(new_goal_path)
   end
-
 
 
   scenario "redirects to show goal page"  do
@@ -42,6 +34,28 @@ RSpec.feature "goals creation method", type: :feature do
   end
 
 
+end
 
+RSpec.feature "User Comments", type: :feature do
+  before(:each) do
+    make_user
+    seed_database
+  end
 
+  scenario "can fill out user comment form" do
+    visit user_goals_url(1)
+    save_and_open_page
+    fill_in "Comment", with: "You're ugly!"
+    click_on "Make Comment"
+    expect(page).to have_content("You're ugly!")
+    expect(page).to have_current_path(user_goals_path(1))
+  end
+
+  scenario "can fill out the goal's comment form" do
+    visit goal_url(1)
+    fill_in "Comment", with: "That's a lame goal!"
+    click_on "Make Comment"
+    expect(page).to have_content("That's a lame goal!")
+    expect(page).to have_current_path(goal_path(1))
+  end
 end

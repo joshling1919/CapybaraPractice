@@ -11,11 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808204056) do
+ActiveRecord::Schema.define(version: 20160808233309) do
+
+  create_table "goal_comments", force: :cascade do |t|
+    t.integer  "author_id",  null: false
+    t.integer  "goal_id",    null: false
+    t.text     "body",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "goals", force: :cascade do |t|
     t.text     "content",    null: false
     t.integer  "author_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_comments", force: :cascade do |t|
+    t.integer  "author_id",  null: false
+    t.integer  "user_id",    null: false
+    t.text     "body",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
